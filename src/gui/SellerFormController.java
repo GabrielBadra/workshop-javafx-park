@@ -58,6 +58,9 @@ public class SellerFormController implements Initializable {
 
 	@FXML
 	private ComboBox<Department> comboBoxDepartment;
+	
+	@FXML
+	private ComboBox<String> comboBoxTag;
 
 	@FXML
 	private Label labelErrorName;
@@ -135,7 +138,7 @@ public class SellerFormController implements Initializable {
 			throw error;
 		}
 
-		return new Seller(id, txtName.getText(), txtModel.getText(), txtColor.getText(), txtPlaca.getText(),
+		return new Seller(id, txtName.getText(), txtModel.getText(), txtColor.getText(), txtPlaca.getText(),comboBoxTag.getValue(),
 		comboBoxDepartment.getValue());
 	}
 
@@ -165,6 +168,7 @@ public class SellerFormController implements Initializable {
 		Constraints.setTextFieldMaxLength(txtColor, 60);
 		Constraints.setTextFieldMaxLength(txtPlaca, 15);
 		initializeComboBoxDepartment();
+		initializeComboBoxTag();
 	}
 
 	public void uptadeFormData() {
@@ -180,6 +184,11 @@ public class SellerFormController implements Initializable {
 			comboBoxDepartment.getSelectionModel().selectFirst();
 		}else {
 			comboBoxDepartment.setValue(seller.getDepartment());
+		}
+		if(seller.getTag() == null) {
+			comboBoxTag.getSelectionModel().selectFirst();
+		}else {
+			comboBoxTag.setValue(seller.getTag());
 		}
 		
 	}
@@ -210,7 +219,14 @@ public class SellerFormController implements Initializable {
 				setText(empty ? "" : item.getName());
 			}
 		};
+		
 		comboBoxDepartment.setCellFactory(factory);
 		comboBoxDepartment.setButtonCell(factory.call(null));
+	}
+	
+	private void initializeComboBoxTag() {
+		ObservableList<String> obs = FXCollections.observableArrayList("Sim", "Não");
+		
+		comboBoxTag.setItems(obs);
 	}
 }

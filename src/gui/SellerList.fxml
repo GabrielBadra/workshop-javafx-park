@@ -27,6 +27,7 @@
             <TableColumn fx:id="tableColumnModel" prefWidth="120.0" text="Model" />
             <TableColumn fx:id="tableColumnColor" prefWidth="111.0" text="Color" />
             <TableColumn fx:id="tableColumnPlaca" prefWidth="129.0" text="Placa" />
+            <TableColumn fx:id="tableColumnTag" prefWidth="75.0" text="TAG?" />
             <TableColumn fx:id="tableColumnEDIT" prefWidth="115.0" />
             <TableColumn fx:id="tableColumnREMOVE" prefWidth="126.0" />
         </columns>

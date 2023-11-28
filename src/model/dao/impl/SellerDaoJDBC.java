@@ -30,16 +30,17 @@ public class SellerDaoJDBC implements SellerDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO seller "
-					+ "(Name, Model, Color, Placa, DepartmentId) "
+					+ "(Name, Model, Color, Placa, Tag, DepartmentId) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?, ?)",
+					+ "(?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			
 			st.setString(1, obj.getName());
 			st.setString(2, obj.getModel());
 			st.setString(3, obj.getColor());
 			st.setString(4, obj.getPlaca());
-			st.setInt(5, obj.getDepartment().getId());
+			st.setString(5, obj.getTag());
+			st.setInt(6, obj.getDepartment().getId());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -69,15 +70,16 @@ public class SellerDaoJDBC implements SellerDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE seller "
-					+ "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
+					+ "SET Name = ?, Model = ?, Color = ?, Placa = ?, Tag = ?, DepartmentId = ? "
 					+ "WHERE Id = ?");
 			
 			st.setString(1, obj.getName());
 			st.setString(2, obj.getModel());
 			st.setString(3, obj.getColor());
 			st.setString(4, obj.getPlaca());
-			st.setInt(5, obj.getDepartment().getId());
-			st.setInt(6, obj.getId());
+			st.setString(5, obj.getTag());
+			st.setInt(6, obj.getDepartment().getId());
+			st.setInt(7, obj.getId());
 			
 			st.executeUpdate();
 		}
@@ -143,6 +145,7 @@ public class SellerDaoJDBC implements SellerDao {
 		obj.setModel(rs.getString("Model"));
 		obj.setColor(rs.getString("Color"));
 		obj.setPlaca(rs.getString("Placa"));
+		obj.setTag(rs.getString("Tag"));
 		obj.setDepartment(dep);
 		return obj;
 	}

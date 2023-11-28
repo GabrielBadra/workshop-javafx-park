@@ -11,19 +11,21 @@ public class Seller implements Serializable {
 	private String model;
 	private String color;
 	private String placa;
+	private String tag;
 	
 	private Department department;
 	
 	public Seller() {
 	}
 
-	public Seller(Integer id, String name, String model, String color, String placa, Department department) {
+	public Seller(Integer id, String name, String model, String color, String placa,String tag, Department department) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.model = model;
 		this.color = color;
 		this.placa = placa;
+		this.tag = tag;
 		this.department = department;
 	}
 
@@ -66,6 +68,14 @@ public class Seller implements Serializable {
 	public void setPlaca(String placa) {
 		this.placa = placa;
 	}
+	
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 
 	public Department getDepartment() {
 		return department;
@@ -100,12 +110,11 @@ public class Seller implements Serializable {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Seller [id=" + id + ", name=" + name + ", model=" + model + ", color=" + color + ", department="
-				+ department + "]";
+		return "Seller [id=" + id + ", name=" + name + ", model=" + model + ", color=" + color + ", placa=" + placa
+				+ ", tag=" + tag + ", department=" + department + "]";
 	}
 
-	
+
 }

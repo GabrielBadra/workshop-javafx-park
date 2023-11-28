@@ -54,6 +54,9 @@ public class SellerListController implements Initializable, DataChangeListener {
 	
 	@FXML
 	private TableColumn<Seller, String> tableColumnPlaca;
+	
+	@FXML
+	private TableColumn<Seller, String> tableColumnTag;
 
 	@FXML
 	private TableColumn<Seller, Seller> tableColumnEDIT;
@@ -88,6 +91,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 		tableColumnModel.setCellValueFactory(new PropertyValueFactory<>("model"));
 		tableColumnColor.setCellValueFactory(new PropertyValueFactory<>("color"));
 		tableColumnPlaca.setCellValueFactory(new PropertyValueFactory<>("placa"));
+		tableColumnTag.setCellValueFactory(new PropertyValueFactory<>("tag"));
 
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewSeller.prefHeightProperty().bind(stage.heightProperty());
