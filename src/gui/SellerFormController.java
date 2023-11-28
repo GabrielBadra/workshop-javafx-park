@@ -27,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.util.Callback;
 import model.entities.Department;
 import model.entities.Seller;
+import model.exceptions.StringEqualsException;
 import model.exceptions.ValidationException;
 import model.service.DepartmentService;
 import model.service.SellerService;
@@ -103,6 +104,8 @@ public class SellerFormController implements Initializable {
 			setErrorMessages(e.getErrors());
 		} catch (DbException e) {
 			Alerts.showAlert("Error Saving object", null, e.getMessage(), AlertType.ERROR);
+		} catch(StringEqualsException e) {
+			Alerts.showAlert("Error Saving object", null, e.getMessage(), AlertType.ERROR);
 		}
 	}
 
@@ -138,8 +141,9 @@ public class SellerFormController implements Initializable {
 			throw error;
 		}
 
-		return new Seller(id, txtName.getText(), txtModel.getText(), txtColor.getText(), txtPlaca.getText(),comboBoxTag.getValue(),
-		comboBoxDepartment.getValue());
+		return new Seller(id, txtName.getText().toUpperCase(), txtModel.getText().toUpperCase(),
+				txtColor.getText().toUpperCase(), txtPlaca.getText().toUpperCase(),
+				comboBoxTag.getValue().toUpperCase(), comboBoxDepartment.getValue());
 	}
 
 	@FXML
