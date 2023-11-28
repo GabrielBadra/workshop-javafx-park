@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -20,6 +21,11 @@
           <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" text="New" />
         </items>
       </ToolBar>
+      <Button fx:id="btSearch" mnemonicParsing="false" onAction="#onBtSearchAction" text="PESQUISAR">
+         <graphic>
+            <TextField fx:id="barSearch" prefHeight="25.0" prefWidth="678.0" />
+         </graphic>
+      </Button>
       <TableView fx:id="tableViewSeller" prefHeight="481.0" prefWidth="763.0">
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="45.0" text="Id" />

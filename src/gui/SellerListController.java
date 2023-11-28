@@ -25,6 +25,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -65,6 +66,12 @@ public class SellerListController implements Initializable, DataChangeListener {
 	private TableColumn<Seller, Seller> tableColumnREMOVE;
 
 	@FXML
+	private Button btSearch;
+	
+	@FXML
+	private TextField barSearch;
+	
+	@FXML
 	private Button btNew;
 
 	private ObservableList<Seller> obsList;
@@ -73,6 +80,15 @@ public class SellerListController implements Initializable, DataChangeListener {
 	public void onBtNewAction(ActionEvent event) {
 		Seller obj = new Seller();
 		createDialogForm(obj, "/gui/SellerForm.fxml", Utils.currentStage(event));
+	}
+	
+	@FXML
+	public void onBtSearchAction(ActionEvent event) {
+		if(barSearch.getText().split("")[0].equals("") || barSearch.getText().split("")[0].equals(" ")) {
+			uptadeTableView();
+		}else {
+			filterTableView(barSearch.getText().toUpperCase());
+		}
 	}
 
 	public void setSellerService(SellerService service) {
@@ -105,6 +121,24 @@ public class SellerListController implements Initializable, DataChangeListener {
 
 		List<Seller> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
+		tableViewSeller.setItems(obsList);
+		initEditButtons();
+		initRemoveButtons();
+	}
+	
+	public void filterTableView(String name) {
+		if (service == null) {
+			throw new IllegalStateException("Service was null");
+		}
+
+		List<Seller> list = service.findAll();
+		obsList = FXCollections.observableArrayList();
+		
+		for(Seller obj: list) {
+			if(obj.getName().split(" ")[0].toUpperCase().equals(name.split(" ")[0].toUpperCase())) {
+				obsList.add(obj);
+			}
+		}
 		tableViewSeller.setItems(obsList);
 		initEditButtons();
 		initRemoveButtons();
