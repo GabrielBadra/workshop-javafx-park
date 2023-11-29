@@ -2,6 +2,8 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -131,17 +133,41 @@ public class SellerListController implements Initializable, DataChangeListener {
 			throw new IllegalStateException("Service was null");
 		}
 
-		List<Seller> list = service.findAll();
 		obsList = FXCollections.observableArrayList();
 		
-		for(Seller obj: list) {
-			if(obj.getName().split(" ")[0].toUpperCase().equals(name.split(" ")[0].toUpperCase())) {
-				obsList.add(obj);
-			}
-		}
-		tableViewSeller.setItems(obsList);
+		tableViewSeller.setItems(searchBar(obsList, name));
 		initEditButtons();
 		initRemoveButtons();
+	}
+
+	private ObservableList<Seller> searchBar(ObservableList<Seller> obsList, String name) {
+		List<Seller> list = service.findAll();
+		List<String> campObj = new ArrayList<>();
+		List<String> campName = new ArrayList<>();
+		
+		for(Seller obj: list) {
+			//AQUI PEGA NOME SOBRENOME DO OBJ E COLOCAR EM ARRAY
+				campObj.addAll(Arrays.asList(obj.getName().split(" ")));
+				campName.addAll(Arrays.asList(name.split(" ")));
+			//FIM
+			
+				//COMPARAÇÃO DE NOMES ESCRITA NA BARRA E DO BANCO DE DADOS
+					if(campObj.size() >= campName.size()) {
+							for(int i = 0; i < campName.size(); i++) {
+								if(campName.get(i).toUpperCase().equals(campObj.get(i).toUpperCase())) {
+									obsList.add(obj);
+									break;
+								}
+							}
+					}else {
+						if(obj.getName().toUpperCase().equals(name.toUpperCase())) {
+							obsList.add(obj);
+						}
+					}
+				//FIM
+			}
+		
+		return obsList;
 	}
 
 	private void createDialogForm(Seller obj, String absoluteName, Stage parentStage) {
