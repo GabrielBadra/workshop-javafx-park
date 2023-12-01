@@ -165,6 +165,9 @@ public class SellerListController implements Initializable, DataChangeListener {
 						}
 					}
 				//FIM
+					
+					campObj.clear();
+					campName.clear();
 			}
 		
 		return obsList;
