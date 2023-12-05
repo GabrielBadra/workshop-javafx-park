@@ -26,6 +26,8 @@ public class MainViewController implements Initializable{
 	@FXML
 	private MenuItem menuItemDepartment;
 	@FXML
+	private MenuItem menuItemCar;
+	@FXML
 	private MenuItem menuItemAbout;
 	
 	@FXML
@@ -44,6 +46,11 @@ public class MainViewController implements Initializable{
 			controller.uptadeTableView();
 			});
 		}
+	
+	@FXML
+	public void onMenuItemCarAction() {
+		loadView("/gui/ParkingFine.fxml", x -> {});
+	}
 	
 	@FXML
 	public void onMenuItemAboutAction() {
