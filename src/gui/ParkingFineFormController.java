@@ -155,7 +155,9 @@ public class ParkingFineFormController implements Initializable, DataChangeListe
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 
-			ParkingFineFormController controller = loader.getController();
+			CarEditController controller = loader.getController();
+			controller.setCar(obj);
+			controller.uptadeCar();
 			controller.subscribeDataChangeListener(this);
 
 			Stage dialogStage = new Stage();
@@ -191,7 +193,7 @@ public class ParkingFineFormController implements Initializable, DataChangeListe
 				}
 				setGraphic(button);
 				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/ParkingFineForm.fxml", Utils.currentStage(event)));
+						event -> createDialogForm(obj, "/gui/CarEdit.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
@@ -218,7 +220,7 @@ public class ParkingFineFormController implements Initializable, DataChangeListe
 		Optional<ButtonType> result =Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
 		if(result.get() == ButtonType.OK) {
 			try {
-				removeCar(obj);;
+				removeCar(obj);
 				uptadeTableView();
 			}catch(DbIntegrityException e) {
 				Alerts.showAlert("Error", null, e.getMessage(), AlertType.ERROR);
