@@ -6,13 +6,16 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import gui.listeners.DataChangeListener;
+import gui.util.Utils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import model.entities.Car;
 
 public class CarEditController implements Initializable{
-	
+	ParkingFineFormController controller;
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
 	@FXML
@@ -22,7 +25,25 @@ public class CarEditController implements Initializable{
 	@FXML
 	private TextField plate;
 	
+	@FXML
+	private Button btSave;
+	
 	private Car car;
+
+	@FXML
+	public void onBtSaveAction(ActionEvent event) {
+		editCar();
+		notifyDataChangeListeners();
+		Utils.currentStage(event).close();
+	}
+	
+	private void editCar() {
+		Car newCar = new Car(carModel.getText(), color.getText(), plate.getText());
+		controller.removeCar(getCar());
+		controller.addCar(newCar);
+		controller.uptadeTableView();
+		setCar(newCar);
+	}
 
 	public Car getCar() {
 		return car;
@@ -30,6 +51,14 @@ public class CarEditController implements Initializable{
 
 	public void setCar(Car car) {
 		this.car = car;
+	}
+
+	public ParkingFineFormController getController() {
+		return controller;
+	}
+
+	public void setController(ParkingFineFormController controller) {
+		this.controller = controller;
 	}
 
 	public void uptadeCar() {

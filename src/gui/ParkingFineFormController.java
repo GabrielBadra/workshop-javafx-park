@@ -49,7 +49,7 @@ public class ParkingFineFormController implements Initializable, DataChangeListe
 	private TextField txtPlate;
 	
 	@FXML
-	private TableView<Car> tableViewCar;
+	private  TableView<Car> tableViewCar;
 
 	@FXML
 	private TableColumn<Car, String> tableColumnCarModel;
@@ -61,12 +61,12 @@ public class ParkingFineFormController implements Initializable, DataChangeListe
 	private TableColumn<Car, String> tableColumnPlate;
 
 	@FXML
-	private TableColumn<Car, Car> tableColumnEDIT;
+	private  TableColumn<Car, Car> tableColumnEDIT;
 
 	@FXML
-	private TableColumn<Car, Car> tableColumnREMOVE;
+	private  TableColumn<Car, Car> tableColumnREMOVE;
 
-	private ObservableList<Car> obsList;
+	private  ObservableList<Car> obsList;
 	
 	@FXML
 	private Button btSave;
@@ -74,7 +74,7 @@ public class ParkingFineFormController implements Initializable, DataChangeListe
 	@FXML
 	private Button btSendEmail;
 	
-	private List<Car> list = new ArrayList<>();
+	private  List<Car> list = new ArrayList<>();
 	
 	public void subscribeDataChangeListener(DataChangeListener listener) {
 		dataChangeListeners.add(listener);
@@ -86,6 +86,7 @@ public class ParkingFineFormController implements Initializable, DataChangeListe
 			System.out.println("Entrou");
 			addCar(new Car(txtCarModel.getText(), txtColor.getText(), txtPlate.getText()));
 			notifyDataChangeListeners();
+			removeTextInTextField();
 			uptadeTableView();
 		}catch(ValidationException e) {
 			Alerts.showAlert("Error Saving object" , null, e.getMessage(), AlertType.ERROR);
@@ -94,6 +95,12 @@ public class ParkingFineFormController implements Initializable, DataChangeListe
 		}
 	}
 	
+	private void removeTextInTextField() {
+		txtCarModel.setText("");
+		txtColor.setText("");
+		txtPlate.setText("");
+	}
+
 	private void notifyDataChangeListeners() {
 		
 		for(DataChangeListener dataChange : dataChangeListeners) {
@@ -136,10 +143,10 @@ public class ParkingFineFormController implements Initializable, DataChangeListe
 		}
 		list.add(car);
 	}
-	private void removeCar(Car car) {
-		list.remove(car);
+	public void removeCar(Car car) {
+				list.remove(car);
 	}
-	private List<Car> getList(){
+	public List<Car> getList(){
 		return list;
 	}
 
@@ -157,6 +164,7 @@ public class ParkingFineFormController implements Initializable, DataChangeListe
 
 			CarEditController controller = loader.getController();
 			controller.setCar(obj);
+			controller.setController(this);
 			controller.uptadeCar();
 			controller.subscribeDataChangeListener(this);
 
@@ -216,7 +224,7 @@ public class ParkingFineFormController implements Initializable, DataChangeListe
 		});
 	}
 
-	private void removeEntity(Car obj) {
+	 private void removeEntity(Car obj) {
 		Optional<ButtonType> result =Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
 		if(result.get() == ButtonType.OK) {
 			try {

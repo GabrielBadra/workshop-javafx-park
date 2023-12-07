@@ -26,7 +26,7 @@
             <TextField fx:id="carModel" promptText="CarModel" GridPane.rowIndex="1" />
             <TextField fx:id="color" promptText="Color" GridPane.rowIndex="3" />
             <TextField fx:id="plate" promptText="Plate" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="342.0" text="Save" GridPane.rowIndex="4" />
+            <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" prefHeight="25.0" prefWidth="342.0" text="Save" GridPane.rowIndex="4" />
             <Label prefHeight="20.0" prefWidth="322.0" text="VIEW UPTADE CAR">
                <font>
                   <Font size="14.0" />
